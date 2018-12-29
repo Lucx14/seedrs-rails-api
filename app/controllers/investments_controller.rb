@@ -18,6 +18,12 @@ class InvestmentsController < ApplicationController
     json_response(@campaign, :created)
   end
 
+  # PUT /campaigns/:campaign_id/investments/:id
+  def update
+    @investment.update(investment_params)
+    head :no_content
+  end
+
 
 
   private

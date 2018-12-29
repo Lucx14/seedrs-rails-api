@@ -87,4 +87,35 @@ RSpec.describe 'Investments API' do
     end
   end
 
+  # Test suite for PUT /campaigns/:campaign_id/investments/:id
+  describe 'PUT /campaigns/:campaign_id/investments/:id' do
+    let(:valid_attributes) { { investment_amount: 10.00 } }
+
+    before { put "/campaigns/#{campaign_id}/investments/#{id}", params: valid_attributes }
+
+    context 'when investment exists' do
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'updates the investment' do
+        updated_investment = Investment.find(id)
+        expect(updated_investment.investment_amount).to match(10.00)
+      end
+    end
+
+    context 'when the investment does not exist' do
+      let(:id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Investment/)
+      end
+    end
+  end
+
+
 end
