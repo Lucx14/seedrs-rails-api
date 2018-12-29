@@ -100,7 +100,7 @@ RSpec.describe 'Campaigns API', type: :request do
     context 'when the record does not exist' do
       let(:campaign_id) { 100 }
       before { put "/campaigns/#{campaign_id}", params: valid_attributes }
-      
+
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
@@ -112,4 +112,12 @@ RSpec.describe 'Campaigns API', type: :request do
   end
 
 
+  # Test suite for DELETE /campaigns/:id
+  describe 'DELETE /campaigns/:id' do
+    before { delete "/campaigns/#{campaign_id}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+  end
 end

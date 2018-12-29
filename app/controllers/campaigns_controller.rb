@@ -27,6 +27,13 @@ class CampaignsController < ApplicationController
   end 
 
 
+  # DELETE /campaigns/:id
+  def destroy
+    @campaign.destroy
+    head :no_content
+  end
+
+
   private
 
   def set_campaign
@@ -37,8 +44,4 @@ class CampaignsController < ApplicationController
     # whitelist params
     params.permit(:campaign_name, :campaign_image, :target_amount, :sector, :country, :investment_multiple)
   end
-
-
-
-
 end
