@@ -7,4 +7,17 @@ class CampaignsController < ApplicationController
     json_response(@campaigns)
   end
 
+  # GET /campaigns/id
+  def show
+    json_response(@campaign)
+  end
+
+
+  private
+
+  def set_campaign
+    @campaign = Campaign.find(params[:id])
+  end
+
+
 end
