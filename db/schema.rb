@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2018_12_29_125241) do
 
   create_table "investments", force: :cascade do |t|
     t.decimal "investment_amount", precision: 15, scale: 2
+    t.boolean "done"
     t.bigint "campaign_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
