@@ -5,7 +5,7 @@ RSpec.describe 'Investments API' do
   let!(:campaign) { create(:campaign) }
   let!(:investments) { create_list(:investment, 20, campaign_id: campaign.id) }
   let(:campaign_id) { campaign.id }
-  let(:id) { items.first.id }
+  let(:id) { investments.first.id }
 
   # Test suite for GET /campaigns/:campaign_id/investments
   describe 'GET /campaigns/:campaign_id/investments' do
@@ -34,4 +34,57 @@ RSpec.describe 'Investments API' do
       end
     end
   end
+
+  # Test suite for GET /campaigns/:campaign_id/investments/:id
+  describe 'GET /campaigns/:campaign_id/investments/:id' do
+    before { get "/campaigns/#{campaign_id}/investments/#{id}" }
+
+    context 'when campaign investment exists' do
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns the investment' do
+        expect(json['id']).to eq(id)
+      end
+    end
+
+    context 'when campaign investment does not exist' do
+      let(:id) { 0 }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Investment/)
+      end 
+    end
+  end
+
+  # Test suite for POST /campaigns/:campaign_id/investments
+  describe 'POST /campaigns/:campaign_id/investments' do
+    let(:valid_attributes) { { investment_amount: 10.00 }}
+
+    context 'when request attributes are valid' do
+      before { post "/campaigns/#{campaign_id}/investments", params: valid_attributes }
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when an invalid request' do
+      before { post "/campaigns/#{campaign_id}/investments", params: {} }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a failure message' do
+        expect(response.body).to match(/Validation failed: Investment amount can't be blank/)
+      end
+    end
+  end
+
 end
