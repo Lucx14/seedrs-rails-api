@@ -81,7 +81,35 @@ RSpec.describe 'Campaigns API', type: :request do
     end
   end
 
-  
+  # Test suite for PUT /campaigns/:id
+  describe 'PUT /campaigns/:id' do
+    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+
+    context 'when the record exists' do
+      before { put "/campaigns/#{campaign_id}", params: valid_attributes }
+
+      it 'updates the record' do
+        expect(response.body).to be_empty
+      end
+
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+
+    context 'when the record does not exist' do
+      let(:campaign_id) { 100 }
+      before { put "/campaigns/#{campaign_id}", params: valid_attributes }
+      
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Campaign/)
+      end
+    end
+  end
 
 
 end

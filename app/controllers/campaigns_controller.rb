@@ -20,6 +20,13 @@ class CampaignsController < ApplicationController
   end
 
 
+  # PUT /campaigns/:id
+  def update
+    @campaign.update(campaign_params)
+    head :no_content
+  end 
+
+
   private
 
   def set_campaign
