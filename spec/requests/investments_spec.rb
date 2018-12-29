@@ -117,5 +117,12 @@ RSpec.describe 'Investments API' do
     end
   end
 
+  # Test suite for DELETE /campaigns/:campaign_id/investments/:id
+  describe 'DELETE /campaigns/:campaign_id/investments/:id' do
+    before { delete "/campaigns/#{campaign_id}/investments/#{id}" }
 
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+  end
 end

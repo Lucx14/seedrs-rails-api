@@ -24,6 +24,12 @@ class InvestmentsController < ApplicationController
     head :no_content
   end
 
+  # DELETE /campaigns/:campaign_id/investments/:id
+  def destroy
+    @investment.destroy
+    head :no_content
+  end
+
 
 
   private
