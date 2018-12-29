@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :todo do
+  factory :campaign do
     campaign_name { Faker::Space.galaxy }
     campaign_image { Faker::Placeholdit.image }
     target_amount { Faker::Number.number(10) }
