@@ -50,4 +50,38 @@ RSpec.describe 'Campaigns API', type: :request do
     end
   end
 
+  # Test suite for POST /campaigns
+  describe 'POST /campaigns' do
+    # valid payload
+    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+
+    context 'when the request is valid' do
+      before { post '/campaigns', params: valid_attributes }
+
+      it 'creates a campaign' do
+        expect(json['campaign_name']).to eq('test name')
+      end
+
+      it 'returns a status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when the request is not valid' do
+      before { post '/campaigns', params: { campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Validation failed: Campaign name can't be blank/)
+      end
+    end
+  end
+
+  
+
+
 end
