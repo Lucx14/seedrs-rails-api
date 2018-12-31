@@ -92,12 +92,11 @@ Your local databases should now be formatted correctly for both Dev and test
 
 ### User interaction
 
-Because this is an API the user interaction can be through an all like postman or insomnia.
+Because this is an API the user interaction can be through an app like postman or insomnia.
 
 First make sure that the server is running on a localhost, if not remember to start rails server
 
 In postman for example you should be able to make GET, POST, PUT, DELETE requests to the api and see the results in json format with data flowing to and from the local database
-
 
 <p align="center"><img src="./public/Screenshot_postman.png"/></p>
 
