@@ -8,23 +8,23 @@ Tags: Ruby, TDD, Ruby on Rails, OOP, PostgreSQL, CRUD, RSpec
 
 Implement a mini Seedrs with a focus on the backend and data model. It is expected you model your domain, have some classes to perform some actions and have some testing on expected behaviour (for example Rspec or other). 
 Campaigns have the following properties
-○ Campaign name
-○ Campaign image (this can be a URL sourced by you)
-○ Percentage raised
-○ Target Amount
-○ Sector
-○ Country
-○ Investment multiple 
 
-● Re-iterate that you should deliver the backend part of the solution.
-● You should implement some sort of data store. E.g. when the code performs an investment that
+* Campaign name
+* Campaign image (this can be a URL sourced by you)
+* Percentage raised
+* Target Amount
+* Sector
+* Country
+* Investment multiple 
+* Re-iterate that you should deliver the backend part of the solution.
+* You should implement some sort of data store. E.g. when the code performs an investment that
 should be persistent.
-● The solution should be implemented on your language / framework of choice.
-● You should seed your data with at least 20 campaigns.
-● BONUS: Your solution could be be Dockerized - if you go down this route, it is expected that
+* The solution should be implemented on your language / framework of choice.
+* You should seed your data with at least 20 campaigns.
+* BONUS: Your solution could be be Dockerized - if you go down this route, it is expected that
 you include a Dockerfile / docker-compose on your files and clear instructions on how to run it
 in a local environment.
-● Your solution should include a README file with step by step instructions on how to “run” it.
+* Your solution should include a README file with step by step instructions on how to “run” it.
 
 ### Approach
 
