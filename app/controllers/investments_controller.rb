@@ -15,6 +15,10 @@ class InvestmentsController < ApplicationController
   # POST /campaigns/:campaign_id/investments/:id
   def create
     @campaign.investments.create!(investment_params)
+    # p @campaign.target_amount
+    # p params["investment_amount"]
+    # # @campaign.target_amount += params["investment_amount"]
+    # @campaign.update("target_amount":@campaign.target_amount += params["investment_amount"])
     json_response(@campaign, :created)
   end
 
