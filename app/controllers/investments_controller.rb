@@ -15,6 +15,8 @@ class InvestmentsController < ApplicationController
   # POST /campaigns/:campaign_id/investments/:id
   def create
     @campaign.investments.create!(investment_params)
+    # so we can actually update the campaign amount invested here
+    # need to add a param to the campaign tables amount invested so far
     # p @campaign.target_amount
     # p params["investment_amount"]
     # # @campaign.target_amount += params["investment_amount"]
