@@ -3,5 +3,5 @@ class Investment < ApplicationRecord
   belongs_to :campaign
 
   # validation
-  validates_presence_of :investment_amount
+  validates_presence_of :investment_amount, :created_by
 end

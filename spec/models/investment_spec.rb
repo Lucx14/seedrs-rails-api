@@ -9,4 +9,5 @@ RSpec.describe Investment, type: :model do
   # Validation tests
   # ensure required columns are present before saving
   it { should validate_presence_of(:investment_amount) }
+  it { should validate_presence_of(:created_by) }
 end

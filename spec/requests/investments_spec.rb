@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Investments API' do 
   # Initialize the test data
+  let(:user) { create(:user) }
   let!(:campaign) { create(:campaign) }
   let!(:investments) { create_list(:investment, 20, campaign_id: campaign.id) }
   let(:campaign_id) { campaign.id }
@@ -64,12 +65,15 @@ RSpec.describe 'Investments API' do
 
   # Test suite for POST /campaigns/:campaign_id/investments
   describe 'POST /campaigns/:campaign_id/investments' do
-    let(:valid_attributes) { { investment_amount: 10.00 }}
+    let(:valid_attributes) do
+      { investment_amount: 10.00, created_by: user.id.to_s }.to_json 
+    end
 
     context 'when request attributes are valid' do
       before { post "/campaigns/#{campaign_id}/investments", params: valid_attributes }
 
       it 'returns status code 201' do
+        
         expect(response).to have_http_status(201)
       end
     end
