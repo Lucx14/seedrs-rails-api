@@ -3,13 +3,15 @@ require 'rails_helper'
 RSpec.describe 'Campaigns API', type: :request do
 
   # initialize test data
+  let(:user) { create(:user) }
   let!(:campaigns) { create_list(:campaign, 10) }
   let(:campaign_id) { campaigns.first.id }
+  let(:headers) { valid_headers }
 
   # Test suite for GET /campaigns
   describe 'GET /campaigns' do
     # make HTTP get request before each example
-    before { get '/campaigns' }
+    before { get '/campaigns', params: {}, headers: headers }
 
     it 'returns campaigns' do
       # note `json` is a custom helper to parse JSON responses
@@ -24,7 +26,7 @@ RSpec.describe 'Campaigns API', type: :request do
 
   # Test suite for GET /campaigns/:id
   describe 'GET /campaigns/:id' do
-    before { get "/campaigns/#{campaign_id}" }
+    before { get "/campaigns/#{campaign_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the campaign' do
@@ -53,10 +55,10 @@ RSpec.describe 'Campaigns API', type: :request do
   # Test suite for POST /campaigns
   describe 'POST /campaigns' do
     # valid payload
-    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 }.to_json }
 
     context 'when the request is valid' do
-      before { post '/campaigns', params: valid_attributes }
+      before { post '/campaigns', params: valid_attributes, headers: headers }
 
       it 'creates a campaign' do
         expect(json['campaign_name']).to eq('test name')
@@ -68,7 +70,8 @@ RSpec.describe 'Campaigns API', type: :request do
     end
 
     context 'when the request is not valid' do
-      before { post '/campaigns', params: { campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+      let(:invalid_attributes) { { campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 }.to_json }
+      before { post '/campaigns', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -83,10 +86,10 @@ RSpec.describe 'Campaigns API', type: :request do
 
   # Test suite for PUT /campaigns/:id
   describe 'PUT /campaigns/:id' do
-    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 } }
+    let(:valid_attributes) { { campaign_name: 'test name', campaign_image: 'test url', target_amount: 1000, sector: 'test sector', country: 'test country', investment_multiple: 10.00 }.to_json }
 
     context 'when the record exists' do
-      before { put "/campaigns/#{campaign_id}", params: valid_attributes }
+      before { put "/campaigns/#{campaign_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -99,7 +102,7 @@ RSpec.describe 'Campaigns API', type: :request do
 
     context 'when the record does not exist' do
       let(:campaign_id) { 100 }
-      before { put "/campaigns/#{campaign_id}", params: valid_attributes }
+      before { put "/campaigns/#{campaign_id}", params: valid_attributes, headers: headers }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -114,7 +117,7 @@ RSpec.describe 'Campaigns API', type: :request do
 
   # Test suite for DELETE /campaigns/:id
   describe 'DELETE /campaigns/:id' do
-    before { delete "/campaigns/#{campaign_id}" }
+    before { delete "/campaigns/#{campaign_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

@@ -15,12 +15,6 @@ class InvestmentsController < ApplicationController
   # POST /campaigns/:campaign_id/investments/:id
   def create
     @campaign.investments.create!(investment_params)
-    # so we can actually update the campaign amount invested here
-    # need to add a param to the campaign tables amount invested so far
-    # p @campaign.target_amount
-    # p params["investment_amount"]
-    # # @campaign.target_amount += params["investment_amount"]
-    # @campaign.update("target_amount":@campaign.target_amount += params["investment_amount"])
     json_response(@campaign, :created)
   end
 
@@ -41,7 +35,7 @@ class InvestmentsController < ApplicationController
   private
 
   def investment_params
-    params.permit(:investment_amount)
+    params.permit(:investment_amount, :created_by)
   end
 
   def set_campaign

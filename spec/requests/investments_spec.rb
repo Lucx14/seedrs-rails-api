@@ -4,13 +4,14 @@ RSpec.describe 'Investments API' do
   # Initialize the test data
   let(:user) { create(:user) }
   let!(:campaign) { create(:campaign) }
-  let!(:investments) { create_list(:investment, 20, campaign_id: campaign.id) }
+  let!(:investments) { create_list(:investment, 20, campaign_id: campaign.id, created_by: user.id) }
   let(:campaign_id) { campaign.id }
   let(:id) { investments.first.id }
+  let(:headers) { valid_headers }
 
   # Test suite for GET /campaigns/:campaign_id/investments
   describe 'GET /campaigns/:campaign_id/investments' do
-    before { get "/campaigns/#{campaign_id}/investments" }
+    before { get "/campaigns/#{campaign_id}/investments", params: {}, headers: headers }
 
     context 'when campaign exist' do
       it 'returns status code 200' do
@@ -38,7 +39,7 @@ RSpec.describe 'Investments API' do
 
   # Test suite for GET /campaigns/:campaign_id/investments/:id
   describe 'GET /campaigns/:campaign_id/investments/:id' do
-    before { get "/campaigns/#{campaign_id}/investments/#{id}" }
+    before { get "/campaigns/#{campaign_id}/investments/#{id}", params: {}, headers: headers }
 
     context 'when campaign investment exists' do
       it 'returns status code 200' do
@@ -65,12 +66,11 @@ RSpec.describe 'Investments API' do
 
   # Test suite for POST /campaigns/:campaign_id/investments
   describe 'POST /campaigns/:campaign_id/investments' do
-    let(:valid_attributes) do
-      { investment_amount: 10.00, created_by: user.id.to_s }.to_json 
-    end
+    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id }.to_json }
+    # Need to figure out how to link the investments to the user
 
     context 'when request attributes are valid' do
-      before { post "/campaigns/#{campaign_id}/investments", params: valid_attributes }
+      before { post "/campaigns/#{campaign_id}/investments", params: valid_attributes, headers: headers }
 
       it 'returns status code 201' do
         
@@ -79,7 +79,7 @@ RSpec.describe 'Investments API' do
     end
 
     context 'when an invalid request' do
-      before { post "/campaigns/#{campaign_id}/investments", params: {} }
+      before { post "/campaigns/#{campaign_id}/investments", params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -93,9 +93,9 @@ RSpec.describe 'Investments API' do
 
   # Test suite for PUT /campaigns/:campaign_id/investments/:id
   describe 'PUT /campaigns/:campaign_id/investments/:id' do
-    let(:valid_attributes) { { investment_amount: 10.00 } }
+    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id }.to_json }
 
-    before { put "/campaigns/#{campaign_id}/investments/#{id}", params: valid_attributes }
+    before { put "/campaigns/#{campaign_id}/investments/#{id}", params: valid_attributes, headers: headers }
 
     context 'when investment exists' do
       it 'returns status code 204' do
@@ -123,7 +123,7 @@ RSpec.describe 'Investments API' do
 
   # Test suite for DELETE /campaigns/:campaign_id/investments/:id
   describe 'DELETE /campaigns/:campaign_id/investments/:id' do
-    before { delete "/campaigns/#{campaign_id}/investments/#{id}" }
+    before { delete "/campaigns/#{campaign_id}/investments/#{id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
