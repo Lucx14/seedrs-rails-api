@@ -66,7 +66,7 @@ RSpec.describe 'Investments API' do
 
   # Test suite for POST /campaigns/:campaign_id/investments
   describe 'POST /campaigns/:campaign_id/investments' do
-    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id }.to_json }
+    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id.to_s }.to_json }
     # Need to figure out how to link the investments to the user
 
     context 'when request attributes are valid' do
@@ -93,7 +93,7 @@ RSpec.describe 'Investments API' do
 
   # Test suite for PUT /campaigns/:campaign_id/investments/:id
   describe 'PUT /campaigns/:campaign_id/investments/:id' do
-    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id }.to_json }
+    let(:valid_attributes) { { investment_amount: 10.00, created_by: user.id.to_s }.to_json }
 
     before { put "/campaigns/#{campaign_id}/investments/#{id}", params: valid_attributes, headers: headers }
 
