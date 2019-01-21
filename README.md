@@ -8,7 +8,7 @@ Tags: Ruby, TDD, Ruby on Rails, OOP, PostgreSQL, CRUD, RSpec
 
 Implement a mini Seedrs with a focus on the backend and data model. It is expected you model your domain, have some classes to perform some actions and have some testing on expected behaviour (for example Rspec or other).
 Campaigns have the following properties
-hi
+
 * Campaign name
 * Campaign image (this can be a URL sourced by you)
 * Percentage raised
