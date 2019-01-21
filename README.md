@@ -6,16 +6,16 @@ Tags: Ruby, TDD, Ruby on Rails, OOP, PostgreSQL, CRUD, RSpec
 
 ## Requirements
 
-Implement a mini Seedrs with a focus on the backend and data model. It is expected you model your domain, have some classes to perform some actions and have some testing on expected behaviour (for example Rspec or other). 
+Implement a mini Seedrs with a focus on the backend and data model. It is expected you model your domain, have some classes to perform some actions and have some testing on expected behaviour (for example Rspec or other).
 Campaigns have the following properties
-
+hi
 * Campaign name
 * Campaign image (this can be a URL sourced by you)
 * Percentage raised
 * Target Amount
 * Sector
 * Country
-* Investment multiple 
+* Investment multiple
 * Re-iterate that you should deliver the backend part of the solution.
 * You should implement some sort of data store. E.g. when the code performs an investment that
 should be persistent.
@@ -62,7 +62,7 @@ $ rails db:migrate
 $ bin/rails db:migrate RAILS_ENV=test
 ```
 
-Your local databases should now be formatted correctly for both Dev and test 
+Your local databases should now be formatted correctly for both Dev and test
 
 ### Database model
 
