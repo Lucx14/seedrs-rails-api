@@ -2,3 +2,15 @@ language: ruby
 
 rvm:
   - 2.5.1
+
+services:
+  - postgresql
+
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database seedrs_test;' -U postgres
+
+  script:
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
+
